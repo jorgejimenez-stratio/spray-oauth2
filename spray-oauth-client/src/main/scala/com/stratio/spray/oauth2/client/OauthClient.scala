@@ -92,6 +92,7 @@ trait OauthClient extends HttpService  {
           indexRedirect
         }
       }catch {
+        case e: SSOException => throw e
         case t: Throwable => {
           log.error("Error in login", t)
           throw t
@@ -126,7 +127,8 @@ trait OauthClient extends HttpService  {
   }
 
   def makeGetRq(url: String): String = {
-    log.debug(s"Getting Request to url [$url]")
+    val logurl = s"${url.substring(0, url.indexOf("?")+1)}/***params hidden for security reason***"
+    log.debug(s"Getting Request to url [$logurl]")
     val pipeline: HttpRequest => Future[HttpResponse] = sendReceive
     val response = pipeline(Get(url))
     val plainResponse: HttpResponse = Await.result(response, Duration.Inf)
@@ -136,7 +138,7 @@ trait OauthClient extends HttpService  {
       log.debug(s"Response OK -> [$resp]")
       resp
     }else{
-      val msg = s"Got error response from url [$url]. Code:[${plainResponse.status}]"
+      val msg = s"Got error response from url [$logurl]. Code:[${plainResponse.status}]"
       log.error(msg)
       throw new SSOException(msg)
     }

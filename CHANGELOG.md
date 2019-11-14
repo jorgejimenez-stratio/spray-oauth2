@@ -1,5 +1,7 @@
 # Changelog
 
+* [GS-1658] GosecManagement oAuth secret is leaked if last login?code=ST-XXXX request is repeated
+
 ## 0.3.6 (March 26, 2019)
 
 * [SECTY-989] Throw exception when sso returns some error
