@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.3.7 (upcoming)
+
 * [GS-1658] GosecManagement oAuth secret is leaked if last login?code=ST-XXXX request is repeated
 
 ## 0.3.6 (March 26, 2019)
