@@ -54,7 +54,7 @@ trait OauthClient extends HttpService  {
     } else {
       val sessionId = getRandomSessionId
       addSession(sessionId, "*", Long.MaxValue)
-      setCookie(HttpCookie(configure.CookieName, sessionId, None, None, None, Option("/")))
+      setCookie(HttpCookie(configure.CookieName, sessionId, None, None, None, Option("/"), configure.HttpOnly))
       provide("*")
     }
   }
@@ -73,7 +73,7 @@ trait OauthClient extends HttpService  {
     } else {
       val sessionId = getRandomSessionId
       addSession(sessionId, "*", Long.MaxValue )
-      setCookie(HttpCookie(configure.CookieName, sessionId, None, None, None, Option("/")))
+      setCookie(HttpCookie(configure.CookieName, sessionId, None, None, None, Option("/"), configure.HttpOnly))
       provide("*")
     }
   }
@@ -88,7 +88,7 @@ trait OauthClient extends HttpService  {
         log.debug(s"Got Token:[$token], expires:[$expires]")
         val sessionId = getRandomSessionId
         addSession(sessionId, getUserProfile(token), expires * 1000)
-        setCookie(HttpCookie(configure.CookieName, sessionId, None, Option(expires), None, Option("/"), httpOnly = true)) {
+        setCookie(HttpCookie(configure.CookieName, sessionId, None, Option(expires), None, Option("/"), configure.HttpOnly)) {
           indexRedirect
         }
       }catch {

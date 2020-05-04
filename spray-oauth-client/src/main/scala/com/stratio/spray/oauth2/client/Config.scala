@@ -33,6 +33,7 @@ class Config(conf: com.typesafe.config.Config = ConfigFactory.load().getConfig("
   val CookieName: String = getDefaultString("cookieName", Option("user"))
   val Enabled: Boolean = getDefaultBoolean("enable", false)
   val RoleName: String = getDefaultString("roleName",Option("roles"))
+  val HttpOnly: Boolean = getDefaultBoolean("httpOnly",false)
   val configuration = conf
 
   private def getDefaultBoolean(key: String, defaultValue: Boolean): Boolean = {
